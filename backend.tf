@@ -3,7 +3,7 @@ terraform {
   backend "s3" {
     bucket  = "lumifitfstore"
     key     = "frontend/terraform.tfstate"
-    region  = local.aws_region
+    region  = l"us-east-1"
     # profile = "lumifitest"
   }
 }
