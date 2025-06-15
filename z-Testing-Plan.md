@@ -19,10 +19,6 @@ aws cloudfront get-distribution --id $DIST_ID --profile lumifitest --query "Dist
 # Verify CloudFront-S3 integration
 aws cloudfront get-distribution-config --id $DIST_ID --profile lumifitest --query "DistributionConfig.Origins.Items[0]"
 ```
-### Remove variables
-```sh
-Remove-Variable DIST_ID
-```
 3. TLS Certificate Validation
 ```sh
 # Check certificate status
@@ -43,7 +39,7 @@ aws cloudfront get-distribution --id $DIST_ID --profile lumifitest --query "Dist
 aws wafv2 list-web-acls --scope CLOUDFRONT --profile lumifitest --query "WebACLs[*].{Name:Name, Id:Id}" --output table
 aws wafv2 get-web-acl `
   --name lumifi-dev-frontend-waf `
-  --id 487bd7bc-2d3d-4f41-837c-6051334c5fbe `
+  --id 30746459-be63-485b-a817-951c60175ed0  `
   --scope CLOUDFRONT `
   --region us-east-1 `
   --profile lumifitest `
@@ -71,4 +67,8 @@ Test-NetConnection www.aitechlearn.xyz -Port 443
 8. Lamnbda
 ```sh
 aws lambda get-function --function-name lumifi-dev-processor --profile lumifitest
+```
+### Remove variables
+```sh
+Remove-Variable DIST_ID
 ```
