@@ -35,28 +35,28 @@ resource "aws_s3_bucket_public_access_block" "frontend" {
   restrict_public_buckets = true
 }
 
-# Frontend bucket policy allowing ONLY CloudFront access
-data "aws_iam_policy_document" "frontend_policy" {
-  # Statement 1: Allow GetObject access
-  statement {
-    actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.frontend.arn}/*"]
-    principals {
-      type        = "AWS"
-      identifiers = [aws_cloudfront_origin_access_identity.frontend.iam_arn]
-    }
-  }
+# # Frontend bucket policy allowing ONLY CloudFront access
+# data "aws_iam_policy_document" "frontend_policy" {
+#   # Statement 1: Allow GetObject access
+#   statement {
+#     actions   = ["s3:GetObject"]
+#     resources = ["${aws_s3_bucket.frontend.arn}/*"]
+#     principals {
+#       type        = "AWS"
+#       identifiers = [aws_cloudfront_origin_access_identity.frontend.iam_arn]
+#     }
+#   }
 
-  # Statement 2: Allow ListBucket access
-  statement {
-    actions   = ["s3:ListBucket"]
-    resources = [aws_s3_bucket.frontend.arn]
-    principals {
-      type        = "AWS"
-      identifiers = [aws_cloudfront_origin_access_identity.frontend.iam_arn]
-    }
-  }
-}
+#   # Statement 2: Allow ListBucket access
+#   statement {
+#     actions   = ["s3:ListBucket"]
+#     resources = [aws_s3_bucket.frontend.arn]
+#     principals {
+#       type        = "AWS"
+#       identifiers = [aws_cloudfront_origin_access_identity.frontend.iam_arn]
+#     }
+#   }
+# }
 
 # Attach the policy to frontend bucket
 resource "aws_s3_bucket_policy" "frontend_public" {
