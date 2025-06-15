@@ -1,4 +1,4 @@
-name: Deploy Frontend code AWS Infrastructure to Devevelopment Environmnet
+name: Deploy Frontend code AWS Infrastructure to Development Environmnet
 
 on:
   push:
