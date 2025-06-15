@@ -8,4 +8,12 @@ locals {
     owner       = "lumifi"
     environment = terraform.workspace
   }
+
+  # tags = merge({
+  #   owner       = "lumifi"
+  #   environment = terraform.workspace
+  # }, {
+  #   CostCenter  = "Frontend"
+  #   DataClass   = "Public"
+  # })
 }

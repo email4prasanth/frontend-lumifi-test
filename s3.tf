@@ -56,6 +56,19 @@ data "aws_iam_policy_document" "frontend_policy" {
       identifiers = [aws_cloudfront_origin_access_identity.frontend.iam_arn]
     }
   }
+  # Statement 3: Add explicit deny for Glacier actions
+  statement {
+    effect    = "Deny"
+    actions   = ["s3:Transition*", "s3:Restore*"]
+    resources = [
+      aws_s3_bucket.frontend.arn,
+      "${aws_s3_bucket.frontend.arn}/*"
+    ]
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+  }
 }
 
 # Attach the policy to frontend bucket
