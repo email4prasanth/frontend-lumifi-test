@@ -71,13 +71,13 @@ resource "aws_s3_bucket_public_access_block" "frontend" {
 #   }
 # }
 
-# Attach the policy to frontend bucket
-resource "aws_s3_bucket_policy" "frontend_public" {
-  bucket = aws_s3_bucket.frontend.id
-  policy = data.aws_iam_policy_document.frontend_policy.json
+# # Attach the policy to frontend bucket
+# resource "aws_s3_bucket_policy" "frontend_public" {
+#   bucket = aws_s3_bucket.frontend.id
+#   policy = data.aws_iam_policy_document.frontend_policy.json
 
-  depends_on = [aws_s3_bucket_public_access_block.frontend]
-}
+#   depends_on = [aws_s3_bucket_public_access_block.frontend]
+# }
 
 # CORS configuration
 resource "aws_s3_bucket_cors_configuration" "frontend" {
