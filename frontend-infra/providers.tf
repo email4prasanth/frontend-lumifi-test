@@ -10,6 +10,5 @@ terraform {
 # AWS Provider Configuration
 provider "aws" {
   region  = local.aws_region
-  # profile = "lumifitest"
+  profile = "lumifitest"
 }
-

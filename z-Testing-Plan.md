@@ -3,18 +3,18 @@
 ```sh
 aws s3api list-buckets --profile lumifitest # Details of list of buckets
 (aws s3api list-buckets --profile lumifitest | ConvertFrom-Json).Buckets.Name # List of buckets names only
-aws s3api head-bucket --bucket lumifi-dev-frontend --profile lumifitest # Check bucket exists and properties
+aws s3api head-bucket --bucket lumifi-dev-frontend-test --profile lumifitest # Check bucket exists and properties
 # Verify static website config
-aws s3api get-bucket-website --bucket lumifi-dev-frontend --profile lumifitest
+aws s3api get-bucket-website --bucket lumifi-dev-frontend-test --profile lumifitest
 # Check bucket policy
-aws s3api get-bucket-policy --bucket lumifi-dev-frontend --query Policy --output text --profile lumifitest | ConvertFrom-Json
+aws s3api get-bucket-policy --bucket lumifi-dev-frontend-test --query Policy --output text --profile lumifitest | ConvertFrom-Json
 
 ```
 2. CloudFront Distribution Check
 ```sh
 # Get distribution status
 $DIST_ID = (aws cloudfront list-distributions --query "DistributionList.Items[?Aliases.Items[?@=='www.aitechlearn.xyz']].Id" --output text --profile lumifitest)
-echo $DIST_ID
+echo $DIST_ID # check it in the aws portal
 aws cloudfront get-distribution --id $DIST_ID --profile lumifitest --query "Distribution.Status"
 # Verify CloudFront-S3 integration
 aws cloudfront get-distribution-config --id $DIST_ID --profile lumifitest --query "DistributionConfig.Origins.Items[0]"
@@ -32,14 +32,32 @@ aws acm describe-certificate `
   --query "{DomainName: Certificate.DomainName, Validations: Certificate.DomainValidationOptions[*].{ValidationDomain: DomainName, ValidationStatus: ValidationStatus}}" `
   --profile lumifitest
 ```
+- Expected output
+```sh
+{
+    "DomainName": "aitechlearn.xyz",
+    "Validations": [
+        {
+            "ValidationDomain": "aitechlearn.xyz",
+            "ValidationStatus": "SUCCESS"
+        },
+        {
+            "ValidationDomain": "*.aitechlearn.xyz",
+            "ValidationStatus": "SUCCESS"
+        }
+    ]
+}
+```
 4. WAF Protection Verification
 ```sh
 # Confirm WAF is attached
 aws cloudfront get-distribution --id $DIST_ID --profile lumifitest --query "Distribution.DistributionConfig.WebACLId"
-aws wafv2 list-web-acls --scope CLOUDFRONT --profile lumifitest --query "WebACLs[*].{Name:Name, Id:Id}" --output table
+aws wafv2 list-web-acls --scope CLOUDFRONT --profile lumifitest --query "WebACLs[*].{Name:Name, Id:Id}" 
+$WAF_ID = (aws wafv2 list-web-acls --scope CLOUDFRONT --profile lumifitest | ConvertFrom-Json).WebACLs.Id
+echo $WAF_ID
 aws wafv2 get-web-acl `
   --name lumifi-dev-frontend-waf `
-  --id 30746459-be63-485b-a817-951c60175ed0  `
+  --id $WAF_ID   `
   --scope CLOUDFRONT `
   --region us-east-1 `
   --profile lumifitest `
@@ -71,4 +89,5 @@ aws lambda get-function --function-name lumifi-dev-processor --profile lumifites
 ### Remove variables
 ```sh
 Remove-Variable DIST_ID
+Remove-Variable WAF_ID
 ```
