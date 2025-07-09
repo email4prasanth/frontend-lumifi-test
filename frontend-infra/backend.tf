@@ -4,6 +4,6 @@ terraform {
     bucket  = "lumifitfstore"
     key     = "frontend/terraform.tfstate"
     region  = "us-east-1"
-    # profile = "lumifitest"
+    profile = "lumifitest"
   }
 }
