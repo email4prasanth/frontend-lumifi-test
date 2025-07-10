@@ -19,13 +19,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # - name: Install AWS CLI
-      #   run: |
-      #     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-      #     unzip awscliv2.zip
-      #     sudo ./aws/install
-      #     aws --version
-
       - name: Configure AWS Credentials
         env:
           AWS_CREDENTIALS: ${{ secrets.AWS_CREDENTIALS }}
@@ -48,15 +41,15 @@ jobs:
         run: |
           terraform workspace select $ENVIRONMENT || terraform workspace new $ENVIRONMENT
 
-      - name: Terraform Validate
-        run: terraform validate
+      # - name: Terraform Validate
+      #   run: terraform validate
 
-      - name: Terraform Plan
-        run: terraform plan -out=tfplan
+      # - name: Terraform Plan
+      #   run: terraform plan -out=tfplan
 
-      - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
+      # - name: Terraform Apply
+      #   run: terraform apply -auto-approve tfplan
 
-# # Destroy the entire infrastructure comment Terraform plan and Terraform Apply
-#       - name: Terraform Destroy
-#         run: terraform destroy -auto-approve
+# Destroy the entire infrastructure comment Terraform plan and Terraform Apply
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
