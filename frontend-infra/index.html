@@ -63,7 +63,7 @@
         // Test connection to API endpoint
         async function testConnection() {
             try {
-                const testResponse = await fetch('https://api.aitechlearn.xyz');
+                // const testResponse = await fetch('https://api.aitechlearn.xyz');
                 const status = testResponse.ok ? 'Connected successfully!' : 'Connection failed';
                 document.getElementById('lambda-output').innerText = status;
             } catch (error) {
@@ -74,7 +74,7 @@
         // Get actual API response
         async function getApiResponse() {
             try {
-                const response = await fetch('https://api.aitechlearn.xyz');
+                // const response = await fetch('https://api.aitechlearn.xyz');
                 const data = await response.json();
                 document.getElementById('api-response').innerText = data.message;
             } catch (error) {
