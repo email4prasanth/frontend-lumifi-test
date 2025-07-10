@@ -7,8 +7,8 @@ resource "null_resource" "cloudfront_invalidation" {
     command     = <<EOT
       aws cloudfront create-invalidation `
         --distribution-id ${aws_cloudfront_distribution.frontend.id} `
-        --paths "/*" `
-        --profile lumifitest
+        --paths "/*" 
+        # --profile lumifitest
     EOT
     interpreter = ["PowerShell", "-Command"]
   }
