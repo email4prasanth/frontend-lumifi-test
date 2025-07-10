@@ -13,7 +13,7 @@ resource "aws_cloudfront_distribution" "frontend" {
   enabled             = true
   is_ipv6_enabled     = true
   default_root_object = "index.html"
-  aliases             = ["www.aitechlearn.xyz"]
+  # aliases             = ["www.aitechlearn.xyz"]
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
@@ -44,11 +44,9 @@ resource "aws_cloudfront_distribution" "frontend" {
   viewer_certificate {
     # acm_certificate_arn      = aws_acm_certificate.cdn_cert.arn
     cloudfront_default_certificate = true
-    ssl_support_method       = "sni-only"
-    minimum_protocol_version = "TLSv1.2_2021"
   }
-
-  web_acl_id = aws_wafv2_web_acl.cdn_waf.arn
+# Require when waf is enabled 
+  # web_acl_id = aws_wafv2_web_acl.cdn_waf.arn
   tags       = local.tags
 }
 
@@ -56,4 +54,8 @@ resource "aws_cloudfront_distribution" "frontend" {
 resource "aws_cloudfront_origin_access_identity" "frontend" {
   # provider = aws.us_east_1
   comment = "OAI for ${aws_s3_bucket.frontend.bucket}"
+}
+
+output "cloudfront_domain" {
+  value = aws_cloudfront_distribution.frontend.domain_name
 }
