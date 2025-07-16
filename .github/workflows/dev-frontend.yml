@@ -55,6 +55,8 @@ jobs:
   deploy-frontend-code:
     needs: aws-resources-deploy
     runs-on: ubuntu-latest
+    env:
+      ENVIRONMENT: dev
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -78,12 +80,20 @@ jobs:
         run: npm install
         working-directory: ./src
 
-      - name: Build TypeScript
+      - name: Debug environment
         run: |
-          npm run build:$ENVIRONMENT \
-          VITE_API_BASE_URL="http://localhost:3001/api/v1/" \
-          VITE_STRIPE_DASHBOARD_URL="https://dashboard.stripe.com/login" 
+          echo "Environment: $ENVIRONMENT"
+          echo "Running command: npm run build:$ENVIRONMENT"
+        working-directory: ./src
+  
+      - name: Build frontend with hardcoded variables
+        run: |
+          # Set environment variables directly
+          export VITE_API_BASE_URL="http://localhost:3001/api/v1/"
+          export VITE_STRIPE_DASHBOARD_URL="https://dashboard.stripe.com/login"
           
+          # Run the correct build command based on environment
+          npm run build:$ENVIRONMENT
         working-directory: ./src
 
       - name: Deploy to S3
