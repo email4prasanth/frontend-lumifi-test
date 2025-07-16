@@ -1,0 +1,617 @@
+{
+  "title": "Lumifi Application",
+
+  "common": {
+    "signUpforFree": "Sign Up Free",
+    "login": "Login",
+    "edit": "Edit",
+    "save": "Save",
+    "dob": "DOB:",
+    "search": "Search",
+    "clear": "Clear",
+    "addPatient": "Add Patient",
+    "resend": "Resend",
+    "reset": "Reset",
+    "letsGo": "Let's Go",
+    "addUser": "Add User",
+    "addDoctor": "Add Doctor",
+    "pending": "Pending",
+    "next": "Next",
+    "skip": "Skip for now",
+    "done": "I'm done",
+    "finish": "Finish",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "add": "Add",
+    "addImplant": "Add Implant",
+    "viewChart": "View Chart",
+    "reactivateAccount": "Reactivate Account",
+    "proceedToLogin": "Proceed to Login",
+    "troubleRegistering": "Trouble registering?",
+    "contactSupport": "Contact Support"
+  },
+  "landingPage": {
+    "heading": {
+      "line1": "Spend more time treating",
+      "line2": "patients and less time:",
+      "highlight": "emailing"
+    },
+    "description": "Stop wasting valuable time tracking down your patients' implant data. Easily and securely access it from anywhere, any time, for free.",
+    "cta": "Create Free Account",
+    "card1": {
+      "title": "Finding dental implant data can be such a hassle!",
+      "description": "Tracking down the treating doc can be exhausting, the back and forth on the phone, fax and email wastes an enormous amount of time all of it keeping you from your first priority treating your patients."
+    },
+    "card2": {
+      "title": "We solve that problem with our platform.",
+      "description": "The treating doc securely inputs the data at the time of implant placement, the patient is notified and has access to their data so they can share it with any doc—and it's FREE"
+    },
+    "card3": {
+      "title": "Free, secure, easy access to your patient's info.",
+      "description": "We provide secure access to all doctors and patients in the system. Simply locate your patient by name and date of birth, retrieve their implant data, and you're done!"
+    }
+  },
+
+  "loginPage": {
+    "title": "Account Login",
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter your email Address"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Entera password"
+    },
+    "forgotPassword": "Forgot Password?",
+    "errors": {
+      "email": {
+        "required": "Email is required",
+        "invalid": "Invalid email address"
+      },
+      "password": {
+        "required": "Password is required"
+      }
+    }
+  },
+
+  "twoFactorAuth": {
+    "title": "Two-Factor Authentication",
+    "subtitle": "Enter the code we just sent to",
+    "code": {
+      "label": "Enter Code",
+      "placeholder": "Enter the code"
+    },
+    "helperText": "Code will expire in 1 minute",
+    "resendCode": "Resend Code",
+    "errors": {
+      "match": "Code must be 6 digit",
+      "required": "Authentication code is required",
+      "invalid": "Invalid authentication code"
+    }
+  },
+
+  "accountPending": {
+    "title": "Your account is still pending verification of your credentials as a licensed provider.",
+    "uaTitle": "Your user account is still pending verification of your credentials as a licensed provider.",
+    "paTitle": "Your practice account is still pending verification of the credentials for your practice.",
+    "message": "If this is taking longer than you expected, or for any other issue, feel free to contact Lumifi support and we’ll do our best to resolve your problem."
+  },
+
+  "reactivateAccount": {
+    "title": "Your account was deactivated on",
+    "message": "If you have changed your mind and would like to restore access to Lumifi for your practice, select ‘Reactivate Account’ below."
+  },
+
+  "accountActive": {
+    "title": "Your account has been reactivated!",
+    "message": "You may now access the Lumifi database to search for patients, view their charts and add implant records."
+  },
+
+  "welcome": {
+    "title": "Welcome to Lumifi!",
+    "subtitle": "Creating your free account is quick and easy!",
+    "steps": {
+      "1": {
+        "text": "Enter practice info"
+      },
+      "2": {
+        "text": "Enter primary doctor info",
+        "note": "you'll need your DEA #!"
+      },
+      "3": {
+        "text": "Create your login"
+      },
+      "4": {
+        "text": "Add more users",
+        "optional": "(optional)"
+      }
+    },
+    "getStarted": "Get Started"
+  },
+
+  "createAcc": {
+    "steps": {
+      "practiceInfo": "PRACTICE INFO",
+      "doctorInfo": "DOCTOR INFO",
+      "createLogin": "CREATE LOGIN",
+      "addUsers": "ADD USERS"
+    },
+    "createAccount": "Create Account",
+    "almostThere": "Almost there!",
+    "congratulations": "Congratulations!",
+    "needsVerification": "Your Lumifi account will be ready to use as soon as we verify your credentials as a provider. We will email you once complete.",
+    "verified": "Your Lumifi account is ready to use!"
+  },
+
+  "practiceInfo": {
+    "title": "Practice Information",
+    "practiceName": {
+      "label": "Practice Name",
+      "placeholder": "Enter the name of your practice"
+    },
+    "address": {
+      "label": "Address",
+      "placeholder": "Enter the street address for the practice"
+    },
+    "address2": {
+      "label": "Address 2",
+      "placeholder": "Suite, unit, floor, etc."
+    },
+    "city": {
+      "label": "City",
+      "placeholder": "Enter the city for your practice"
+    },
+    "state": {
+      "label": "State *",
+      "placeholder": "Select a State.."
+    },
+    "zip": {
+      "label": "ZIP/Postal Code",
+      "placeholder": "Enter the postal / ZIP code for your practice"
+    },
+    "officeEmail": {
+      "label": "Office Email",
+      "placeholder": "Enter the general email address for the practice"
+    },
+    "officePhone": {
+      "label": "Office Phone",
+      "placeholder": "Enter the main phone number for your practice"
+    },
+    "webLink": {
+      "label": "Website address",
+      "placeholder": "Enter your practice website (e.g., example.com)"
+    },
+    "specialty": {
+      "label": "Specialty *",
+      "placeholder": "Select one..."
+    },
+    "practiceManagementSoftware": {
+      "label": "Practice management software",
+      "placeholder": "Select which software your practice uses"
+    },
+    "errors": {
+      "practiceName": "Practice Name is required",
+      "address": "Address is required",
+      "address2": "Address is required",
+      "city": "City is required",
+      "state": "State is required",
+      "zip": {
+        "required": "ZIP/Postal Code is required",
+        "invalid": "Invalid ZIP/Postal Code"
+      },
+      "officeEmail": "Invalid email address",
+      "officePhone": {
+        "required": "Office Phone is required",
+        "invalid": "Invalid phone number"
+      },
+      "webLink": "Please enter a valid website address",
+      "specialty": "Specialty is required"
+    }
+  },
+
+  "doctorInfo": {
+    "title": "Doctor Information",
+    "message": "Enter your professional info",
+    "firstName": {
+      "label": "Doctor's first name",
+      "placeholder": "Enter doc's first name"
+    },
+    "lastName": {
+      "label": "Doctor's last name",
+      "placeholder": "Enter doc's last name"
+    },
+    "email": {
+      "label": "Doctor's email",
+      "placeholder": "Enter doc's direct work email"
+    },
+    "deaNumber": {
+      "label": "Doctor's DEA number",
+      "placeholder": "Enter doc's DEA number",
+      "tooltip": "A DEA Registration Number is a unique identifier provided by the Drug Enforcement Agency to medical practitioners."
+    },
+    "licenseNumber": {
+      "label": "License number",
+      "placeholder": "Enter your license number"
+    },
+    "licenseState": {
+      "label": "State where license issued *",
+      "placeholder": "Select one..."
+    },
+    "hasNoDeaCheckbox": "I don't have a DEA number",
+    "errors": {
+      "firstName": {
+        "required": "First name is required"
+      },
+      "lastName": {
+        "required": "Last name is required"
+      },
+      "email": {
+        "required": "Email is required",
+        "invalid": "Invalid email address"
+      },
+      "deaNumber": {
+        "required": "DEA number is required",
+        "invalid": "Not a Valid DEA Number - Please re-enter"
+      },
+      "licenseNumber": {
+        "required": "License number is required"
+      },
+      "licenseState": {
+        "required": "License state is required"
+      }
+    }
+  },
+
+  "loginInfo": {
+    "title": "Login Information",
+    "subtitle": "Create a login for the primary user.\nThis can be changed later in settings.",
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter work email"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter a password",
+      "helperText": "Must have at least 8 characters and have at least one symbol and one number"
+    },
+    "mobileNumber": {
+      "label": "Mobile Phone",
+      "placeholder": "Enter mobile number",
+      "helperText": "Optional: for two-factor authentication. This can be setup later in settings"
+    },
+    "errors": {
+      "email": {
+        "invalid": "Invalid email address",
+        "required": "Email is required"
+      },
+      "password": {
+        "min": "Password must be at least 8 characters",
+        "number": "Password must contain at least one number",
+        "symbol": "Password must contain at least one symbol",
+        "required": "Password is required"
+      },
+      "mobileNumber": {
+        "invalid": "Invalid phone number"
+      }
+    },
+    "enableTwoFactor": "Enable Two-Factor Authentication"
+  },
+
+  "usersInfo": {
+    "title": "Add Users",
+    "successMessageLine1": "User Saved Successfully!",
+    "successMessageLine2": "Add more users, or select 'I'm Done' to finish.",
+    "initialMessage": "Setup additional doctors or staff for your practice. You can always do this later in settings.",
+    "userAdded": "I'm done",
+    "userNotAdded": "Skip for now",
+
+    "userFirstName": {
+      "label": "User's first name",
+      "placeholder": "Enter first name"
+    },
+    "userLastName": {
+      "label": "User's last name",
+      "placeholder": "Enter last name"
+    },
+    "email": {
+      "label": "User's email",
+      "placeholder": "Enter work email",
+      "duplicate": "Email already exists - Please use a different email"
+    },
+    "mobileNumber": {
+      "label": "Mobile Phone",
+      "placeholder": "Enter mobile number",
+      "helperText": "Optional: for two-factor authentication. This can be setup later in settings"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter a password",
+      "helperText": "Must have at least 8 characters and have at least one symbol and one number"
+    },
+    "role": {
+      "label": "Role *",
+      "placeholder": "Select one..."
+    },
+    "deaNumber": {
+      "label": "DEA number",
+      "placeholder": "Enter DEA number",
+      "infoText": "A DEA Registration Number is a unique identifier provided by the Drug Enforcement Agency to medical practitioners."
+    },
+    "hasNoDea": {
+      "label": "I don't have a DEA number"
+    },
+    "licenseNumber": {
+      "label": "License number",
+      "placeholder": "Enter your license number"
+    },
+    "licenseState": {
+      "label": "State where license issued *",
+      "placeholder": "Select one..."
+    },
+    "errors": {
+      "firstName": {
+        "required": "First name is required",
+        "invalid": "First name must only contain letters"
+      },
+      "lastName": {
+        "required": "Last name is required",
+        "invalid": "Last name must only contain letters"
+      },
+      "email": {
+        "required": "Email is required",
+        "invalid": "Invalid email address"
+      },
+      "password": {
+        "required": "Password is required",
+        "minLength": "Password must be at least 8 characters",
+        "missingNumber": "Password must contain at least one number",
+        "missingSymbol": "Password must contain at least one symbol"
+      },
+      "mobileNumber": {
+        "invalid": "Invalid phone number"
+      },
+      "role": {
+        "required": "Role is required"
+      },
+      "deaNumber": {
+        "required": "DEA number is required",
+        "invalid": "Not a Valid DEA Number - Please re-enter"
+      },
+      "licenseNumber": {
+        "required": "License number is required"
+      },
+      "licenseState": {
+        "required": "License state is required"
+      }
+    }
+  },
+
+  "termsInfo": {
+    "title": "Agreement to Terms",
+    "subtitle": "Check the box below and you're done!",
+    "checkboxLabel": "By creating this account, I agree to Lumifi's standard <termsLink>terms of use</termsLink> and <privacyLink>privacy policy</privacyLink>.",
+    "checkboxLabelPlain": "By creating this account, I agree to Lumifi's standard terms of use and privacy policy."
+  },
+
+  "notFound": {
+    "title": "404",
+    "description": "Oops! This page seems to be missing, just like a broken tooth.",
+    "goBack": "Go Back",
+    "homePage": "Home Page"
+  },
+
+  "practiceAccount": {
+    "success": "Practice Account Created Successfully!",
+    "practiceNameAlreadyExists": "Practice name has already been registered",
+    "practiceEmailAlreadyExists": "Login email has already been registered"
+  },
+
+  "setPassword": {
+    "title": "Set New Password",
+    "successMessage": "Your password has been Set!",
+    "password": {
+      "label": "Create your new password",
+      "placeholder": "Enter a secure password",
+      "helperText": "Must have at least 8 characters and have at least one symbol and one number"
+    },
+    "repeatPassword": {
+      "label": "Re-enter new password",
+      "placeholder": "Re-enter password"
+    },
+    "errors": {
+      "password": {
+        "min": "Password must be at least 8 characters",
+        "number": "Password must contain at least one number",
+        "symbol": "Password must contain at least one symbol",
+        "required": "Password is required",
+        "match": "Passwords do not match",
+        "confpassrequired": "Confirm password is required"
+      }
+    }
+  },
+
+  "forgotPassword": {
+    "title": "Reset Password",
+    "subtitle": "Enter the email address that you used to create your account and we’ll send you an email with a link to reset your password.",
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter your email Address"
+    },
+    "errors": {
+      "required": "Email is required",
+      "invalid": "Invalid email address"
+    }
+  },
+  "resetPassword": {
+    "title": "Password Reset",
+    "password": {
+      "label": "Enter new password",
+      "placeholder": "Enter a password",
+      "helperText": "Must have at least 8 characters and have at least one symbol and one number"
+    },
+    "repeatPassword": {
+      "label": "Re-enter new password",
+      "placeholder": "Re-enter password"
+    },
+    "successMessage": "Your password has been reset!",
+    "errors": {
+      "password": {
+        "min": "Password must be at least 8 characters",
+        "number": "Password must contain at least one number",
+        "symbol": "Password must contain at least one symbol",
+        "required": "Password is required",
+        "match": "Passwords do not match",
+        "confpassrequired": "Confirm password is required"
+      }
+    }
+  },
+  "homePage": {
+    "title": "What would you like to do today?",
+    "addImplant": "Add a new implant",
+    "addImplantDescription": "If you just need to add an implant record for a patient, find the patient first, then add the record.",
+    "addImplantBtn": "Add Implant",
+    "findImplant": "Find an implant record",
+    "findImplantDescription": "If you need to find out the information for an existing implant, find the patient, then view their chart.",
+    "findImplantBtn": "Search for Implant"
+  },
+  "selectPracticeType": {
+    "title": "Select Practice Type",
+    "subtitle": "Please select a practice type to continue.",
+    "errors": {
+      "required": "Practice type is required"
+    }
+  },
+
+  "noAccess": {
+    "title": "You Can’t Handle the Tooth!",
+    "description": "You don’t have permission to view this page. Talk to your admin to unlock this bite.",
+    "goBack": "Go Back",
+    "homePage": "Go Home"
+  },
+  "manageUser": {
+    "header": {
+      "addUser": "Add User",
+      "editUser": "Update User Info",
+      "listUser": "Manage Users"
+    },
+    "noUsers": "No users found",
+    "tableHeader": {
+      "first": "FIRST",
+      "last": "LAST",
+      "email": "EMAIL",
+      "role": "ROLE"
+    },
+    "modal": {
+      "title": "Deleting this user will permanently remove them from the system."
+    }
+  },
+  "manageDoctor": {
+    "header": {
+      "addDoctor": "Add Doctor",
+      "editDoctor": "Update Doctor Info",
+      "listDoctor": "Manage Doctors"
+    },
+    "noDoctors": "No doctors found",
+    "tableHeader": {
+      "first": "FIRST",
+      "last": "LAST",
+      "email": "EMAIL",
+      "status": "STATUS"
+    },
+    "modal": {
+      "title": "Deleting this doctor will permanently remove them from the system."
+    }
+  },
+  "manageBilling": {
+    "heading": "Manage Billing",
+    "manageBillingBtn": " Manage in Stripe",
+    "title1": "Stripe Payment Gateway",
+    "title2": "Securely manage your billing and subscriptions through Stripe."
+  },
+  "manageSecurity": {
+    "header": {
+      "securityDetail": "Security Settings",
+      "securityEdit": "Update Security Settings"
+    }
+  },
+  "patients": {
+    "title": "Find a Patient:",
+    "initial": {
+      "step1": "Step 1: Locate your patient",
+      "sub": "If they're in here, we'll find them!"
+    },
+    "placeHolder": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "dob": "DOB: MM-DD-YYYY"
+    },
+    "searchPatient": {
+      "matchFound": "We found a match!",
+      "subMessage": "Do the implant records on file match your patient?",
+      "noMatchesTitle": "Sorry, no matches...",
+      "noMatchesSub": "Double check the information you entered and correct any errors, or go ahead and set up a quick profile for your patient—it only takes a few seconds.",
+      "multipleMatchesTitle": "What are the chances!?",
+      "multipleMatchesSub": "Check which implants match your patient...",
+      "notYourPatient": {
+        "title": "Not your patient? No problem.",
+        "line1": "First,",
+        "linkText": "set up a new patient profile",
+        "line2": "Then you'll be prompted to add the implant record."
+      }
+    },
+    "implantRecords": {
+      "title": "Implant records on file:",
+      "tooth": "TOOTH",
+      "date": "DATE",
+      "noData": "--"
+    },
+    "addPatient": {
+      "title": "Add a new patient:",
+      "reviewPrompt": "Does everything look right?",
+      "labels": {
+        "firstName": "First name",
+        "lastName": "Last name",
+        "dob": "Date of birth",
+        "email": "Email",
+        "phone": "Phone"
+      },
+      "placeholders": {
+        "firstName": "Enter patient's first name",
+        "lastName": "Enter patient's last name",
+        "dob": "MM-DD-YYYY",
+        "email": "Enter patient's primary email address",
+        "phone": "Enter patient's preferred phone number"
+      },
+      "errors": {
+        "firstName": {
+          "required": "First name is required",
+          "invalid": "First name must only contain letters"
+        },
+        "lastName": {
+          "required": "Last name is required",
+          "invalid": "Last name must only contain letters"
+        },
+        "dob": {
+          "required": "Date of birth is required",
+          "format": "Invalid date format (expected MM-DD-YYYY)",
+          "future": "Date of birth cannot be in the future"
+        },
+        "email": {
+          "invalid": "Invalid email address"
+        },
+        "phone": {
+          "invalid": "Invalid phone number"
+        }
+      },
+      "summary": {
+        "firstName": "First name",
+        "lastName": "Last name",
+        "dob": "Dob",
+        "email": "Email",
+        "phone": "Phone",
+        "na": "N/A"
+      }
+    },
+    "editPatient": {}
+  }
+}

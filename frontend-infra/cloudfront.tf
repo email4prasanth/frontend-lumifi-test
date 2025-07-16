@@ -56,6 +56,4 @@ resource "aws_cloudfront_origin_access_identity" "frontend" {
   comment = "OAI for ${aws_s3_bucket.frontend.bucket}"
 }
 
-output "cloudfront_domain" {
-  value = aws_cloudfront_distribution.frontend.domain_name
-}
+

@@ -1,0 +1,13 @@
+build
+dist
+node_modules
+src/assets
+
+*.svg
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.ico
+*.bmp
