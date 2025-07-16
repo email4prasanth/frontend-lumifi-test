@@ -37,6 +37,14 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate
+        
+      # Remove if no null provider is not used
+      - name: Clean Terraform State
+        run: |
+          # Remove any null provider references from state
+          terraform state list | grep null_resource | while read -r resource; do
+            terraform state rm "$resource"
+          done
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
