@@ -44,55 +44,55 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
 
-deploy-frontend-code:
-  needs: deploy-infrastructure
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
+  deploy-frontend-code:
+    needs: deploy-infrastructure
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
         
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 18
-
-    - name: Show package.json
-      run: cat package.json
-
-    - name: Install dependencies
-      run: npm install
-      working-directory: ./src
-
-    - name: Build TypeScript
-      run: npm run build
-      working-directory: ./src
-
-    - name: Create env.yml
-      run: |
-        cat <<EOF > env.yml
-        $ENVIRONMENT:
-              VITE_API_BASE_URL="http://localhost:3001/api/v1/"
-              VITE_STRIPE_DASHBOARD_URL=https://dashboard.stripe.com/login
-
-        EOF
-    - name: Deploy to S3
-      run: |
-        aws s3 sync src/dist/ s3://${{ needs.deploy-infrastructure.outputs.s3_bucket_name }} \
-          --delete \
-          --cache-control "public, max-age=31536000, immutable"
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
           
-    - name: Invalidate CloudFront cache
-      run: |
-        aws cloudfront create-invalidation \
-          --distribution-id ${{ needs.deploy-infrastructure.outputs.cloudfront_distribution_id }} \
-          --paths "/*"
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+  
+      - name: Show package.json
+        run: cat package.json
+  
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./src
+  
+      - name: Build TypeScript
+        run: npm run build
+        working-directory: ./src
+  
+      - name: Create env.yml
+        run: |
+          cat <<EOF > env.yml
+          $ENVIRONMENT:
+                VITE_API_BASE_URL="http://localhost:3001/api/v1/"
+                VITE_STRIPE_DASHBOARD_URL=https://dashboard.stripe.com/login
+  
+          EOF
+      - name: Deploy to S3
+        run: |
+          aws s3 sync src/dist/ s3://${{ needs.deploy-infrastructure.outputs.s3_bucket_name }} \
+            --delete \
+            --cache-control "public, max-age=31536000, immutable"
+            
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ needs.deploy-infrastructure.outputs.cloudfront_distribution_id }} \
+            --paths "/*"
 
 # # Destroy the entire infrastructure comment Terraform plan and Terraform Apply
 #       - name: Terraform Destroy
