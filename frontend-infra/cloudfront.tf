@@ -45,9 +45,9 @@ resource "aws_cloudfront_distribution" "frontend" {
     # acm_certificate_arn      = aws_acm_certificate.cdn_cert.arn
     cloudfront_default_certificate = true
   }
-# Require when waf is enabled 
+  # Require when waf is enabled 
   # web_acl_id = aws_wafv2_web_acl.cdn_waf.arn
-  tags       = local.tags
+  tags = local.tags
 }
 
 # CloudFront Origin Access Identity (OAI)
