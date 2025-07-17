@@ -113,10 +113,12 @@
 name: Destroy lumifi frontend Infrastructure
 
 on:
-  workflow_dispatch:  # Manual trigger only, never on push
+  push:
+    branches:
+      - develop-sls-fe
 
 jobs:
-  destroy:
+  aws-resources-ddestroy:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -132,6 +134,7 @@ jobs:
         run: |
           echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
           echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+          # echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> $GITHUB_ENV
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
