@@ -82,18 +82,18 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ./src  
+        # working-directory: ./src  
 
       - name: Debug environment
         run: |
           echo "Environment: $ENVIRONMENT"
           echo "Running command: npm run build:$ENVIRONMENT"
-        working-directory: ./src
+        # working-directory: ./src
 
       # ADD THIS BUILD STEP
       - name: Build frontend
         run: npm run build:$ENVIRONMENT
-        working-directory: ./src
+        # working-directory: ./src
         env:
           VITE_API_BASE_URL: "https://167oawyj87.execute-api.us-east-1.amazonaws.com/api/v1"
           VITE_STRIPE_DASHBOARD_URL: "https://dashboard.stripe.com/login"
@@ -101,7 +101,7 @@ jobs:
 
       - name: List build output
         run: ls -la dist/
-        working-directory: ./src
+        # working-directory: ./src
 
       - name: Deploy to S3
         run: |
@@ -109,7 +109,7 @@ jobs:
           aws s3 sync ./dist/ s3://${{ needs.aws-resources-deploy.outputs.s3_bucket_name }} \
             --delete \
             --cache-control "public, max-age=31536000, immutable"
-        working-directory: ./src  # Build output is in src/dist
+        # working-directory: ./src  # Build output is in src/dist
 
       - name: Invalidate CloudFront cache
         run: |
