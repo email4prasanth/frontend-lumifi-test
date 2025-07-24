@@ -1,116 +1,5 @@
-# ###
-# name: Deploy lumifi frontend Infrastructure to devevelopment environmnet
-
-# on:
-#   push:
-#     branches:
-#       - develop-sls-fe
-
-# jobs:
-#   aws-resources-deploy:
-#     runs-on: ubuntu-latest
-#     defaults:
-#       run:
-#         working-directory: frontend-infra
-#     env:
-#       ENVIRONMENT: dev
-#       AWS_REGION: us-east-1
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
-
-#       - name: Configure AWS Credentials
-#         run: |
-#           echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-#           echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
-#           # echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> $GITHUB_ENV
-
-#       - name: Set up Terraform
-#         uses: hashicorp/setup-terraform@v3
-
-#       - name: Terraform Init
-#         run: terraform init -reconfigure
-
-#       - name: Select/Create Workspace
-#         run: |
-#           terraform workspace select $ENVIRONMENT || terraform workspace new $ENVIRONMENT
-
-#       - name: Terraform Validate
-#         run: terraform validate
-        
-#       # # Remove if no null provider is not used
-#       # - name: Clean Terraform State
-#       #   run: |
-#       #     # Remove any null provider references from state
-#       #     terraform state list | grep null_resource | while read -r resource; do
-#       #       terraform state rm "$resource"
-#       #     done
-
-#       - name: Terraform Plan
-#         run: terraform plan -out=tfplan
-
-#       - name: Terraform Apply
-#         run: terraform apply -auto-approve tfplan
-
-#   deploy-frontend-code:
-#     needs: aws-resources-deploy
-#     runs-on: ubuntu-latest
-#     env:
-#       ENVIRONMENT: dev
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
-
-#       - name: Configure AWS Credentials
-#         uses: aws-actions/configure-aws-credentials@v4
-#         with:
-#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#           aws-region: us-east-1
-
-#       - name: Setup Node.js
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: 18
-
-#       - name: Show package.json
-#         run: cat package.json
-
-#       - name: Install dependencies
-#         run: npm install
-#         working-directory: ./src
-
-#       - name: Debug environment
-#         run: |
-#           echo "Environment: $ENVIRONMENT"
-#           echo "Running command: npm run build:$ENVIRONMENT"
-#         working-directory: ./src
-  
-#       - name: Build frontend with hardcoded variables
-#         run: |
-#           # Set environment variables directly
-#           export VITE_API_BASE_URL="http://localhost:3001/api/v1/"
-#           export VITE_STRIPE_DASHBOARD_URL="https://dashboard.stripe.com/login"
-          
-#           # Run the correct build command based on environment
-#           npm run build:$ENVIRONMENT
-#         working-directory: ./src
-
-#       - name: Deploy to S3
-#         run: |
-#           aws s3 sync src/dist/ s3://${{ needs.deploy-infrastructure.outputs.s3_bucket_name }} \
-#             --delete \
-#             --cache-control "public, max-age=31536000, immutable"
-
-#       - name: Invalidate CloudFront cache
-#         run: |
-#           aws cloudfront create-invalidation \
-#             --distribution-id ${{ needs.deploy-infrastructure.outputs.cloudfront_distribution_id }} \
-#             --paths "/*"
-
-### To destory
 ###
-name: Destroy lumifi frontend Infrastructure
+name: Deploy lumifi frontend Infrastructure to devevelopment environmnet
 
 on:
   push:
@@ -118,7 +7,7 @@ on:
       - develop-sls-fe
 
 jobs:
-  aws-resources-ddestroy:
+  aws-resources-deploy:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -142,8 +31,123 @@ jobs:
       - name: Terraform Init
         run: terraform init -reconfigure
 
-      - name: Select Workspace
-        run: terraform workspace select $ENVIRONMENT || terraform workspace new $ENVIRONMENT
+      - name: Select/Create Workspace
+        run: |
+          terraform workspace select $ENVIRONMENT || terraform workspace new $ENVIRONMENT
 
-      - name: Terraform Destroy
-        run: terraform destroy -auto-approve
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
+
+      # Capture Terraform outputs for next job
+      - name: Save Terraform outputs
+        id: tf-outputs
+        run: |
+          echo "s3_bucket_name=$(terraform output -raw s3_bucket_name)" >> $GITHUB_OUTPUT
+          echo "cloudfront_id=$(terraform output -raw cloudfront_distribution_id)" >> $GITHUB_OUTPUT
+
+    # Make outputs available to next job
+    outputs:
+      s3_bucket_name: ${{ steps.tf-outputs.outputs.s3_bucket_name }}
+      cloudfront_id: ${{ steps.tf-outputs.outputs.cloudfront_id }}
+
+  deploy-frontend-code:
+    needs: aws-resources-deploy
+    runs-on: ubuntu-latest
+    env:
+      ENVIRONMENT: dev
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Show package.json
+        run: cat package.json
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./src  
+
+      - name: Debug environment
+        run: |
+          echo "Environment: $ENVIRONMENT"
+          echo "Running command: npm run build:$ENVIRONMENT"
+        working-directory: ./src
+  
+      - name: Build frontend with hardcoded variables
+        run: |
+          # Set environment variables directly
+          export VITE_API_BASE_URL="https://ypsykhuu2d.execute-api.us-east-1.amazonaws.com"
+          export VITE_STRIPE_DASHBOARD_URL="https://dashboard.stripe.com/login"
+          
+          # Run the correct build command based on environment
+          npm run build:$ENVIRONMENT
+        working-directory: ./src
+
+      - name: Deploy to S3
+        run: |
+          aws s3 sync src/dist/ s3://${{ needs.deploy-infrastructure.outputs.s3_bucket_name }} \
+            --delete \
+            --cache-control "public, max-age=31536000, immutable"
+
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ needs.deploy-infrastructure.outputs.cloudfront_distribution_id }} \
+            --paths "/*"
+
+# ### To destory
+# ###
+# name: Destroy lumifi frontend Infrastructure
+
+# on:
+#   push:
+#     branches:
+#       - develop-sls-fe
+
+# jobs:
+#   aws-resources-destroy:
+#     runs-on: ubuntu-latest
+#     defaults:
+#       run:
+#         working-directory: frontend-infra
+#     env:
+#       ENVIRONMENT: dev
+#       AWS_REGION: us-east-1
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       - name: Configure AWS Credentials
+#         run: |
+#           echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+#           echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+#           # echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> $GITHUB_ENV
+
+#       - name: Set up Terraform
+#         uses: hashicorp/setup-terraform@v3
+
+#       - name: Terraform Init
+#         run: terraform init -reconfigure
+
+#       - name: Select Workspace
+#         run: terraform workspace select $ENVIRONMENT || terraform workspace new $ENVIRONMENT
+
+#       - name: Terraform Destroy
+#         run: terraform destroy -auto-approve
