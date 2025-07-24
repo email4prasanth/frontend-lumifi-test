@@ -100,7 +100,7 @@ jobs:
 
 
       - name: List build output
-        run: ls -la ./dist/
+        run: ls -la dist/
         working-directory: ./src
 
       - name: Deploy to S3
