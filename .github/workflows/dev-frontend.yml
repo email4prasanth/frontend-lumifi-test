@@ -100,16 +100,22 @@ jobs:
       #     npm run build:$ENVIRONMENT
       #   working-directory: ./src
 
+      - name: List build output
+        run: ls -la ./dist/
+        working-directory: ./src
+
       - name: Deploy to S3
         run: |
-          aws s3 sync src/dist/ s3://${{ needs.deploy-infrastructure.outputs.s3_bucket_name }} \
+          # Corrected output reference (aws-resources-deploy vs deploy-infrastructure)
+          aws s3 sync ./dist/ s3://${{ needs.aws-resources-deploy.outputs.s3_bucket_name }} \
             --delete \
             --cache-control "public, max-age=31536000, immutable"
+        working-directory: ./src  # Build output is in src/dist
 
       - name: Invalidate CloudFront cache
         run: |
           aws cloudfront create-invalidation \
-            --distribution-id ${{ needs.deploy-infrastructure.outputs.cloudfront_distribution_id }} \
+            --distribution-id ${{ needs.aws-resources-deploy.outputs.cloudfront_id }} \
             --paths "/*"
 
 # ### To destory
