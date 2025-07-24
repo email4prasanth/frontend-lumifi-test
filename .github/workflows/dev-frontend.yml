@@ -154,5 +154,28 @@ jobs:
       - name: Select Workspace
         run: terraform workspace select $ENVIRONMENT || terraform workspace new $ENVIRONMENT
 
+      - name: Get S3 bucket name
+        id: get-bucket
+        run: |
+          BUCKET_NAME=$(terraform output -raw s3_bucket_name)
+          echo "s3_bucket_name=$BUCKET_NAME" >> $GITHUB_OUTPUT
+
+      - name: Empty S3 bucket
+        run: |
+          # Delete all object versions
+          aws s3api delete-objects --bucket ${{ steps.get-bucket.outputs.s3_bucket_name }} \
+            --delete "$(aws s3api list-object-versions \
+            --bucket ${{ steps.get-bucket.outputs.s3_bucket_name }} \
+            --output=json \
+            --query='{Objects: Versions[].{Key:Key,VersionId:VersionId}}')" || true
+
+          # Delete all delete markers
+          aws s3api delete-objects --bucket ${{ steps.get-bucket.outputs.s3_bucket_name }} \
+            --delete "$(aws s3api list-object-versions \
+            --bucket ${{ steps.get-bucket.outputs.s3_bucket_name }} \
+            --output=json \
+            --query='{Objects: DeleteMarkers[].{Key:Key,VersionId:VersionId}}')" || true
+
+
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
