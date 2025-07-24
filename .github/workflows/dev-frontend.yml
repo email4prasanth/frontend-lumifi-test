@@ -90,15 +90,15 @@ jobs:
           echo "Running command: npm run build:$ENVIRONMENT"
         working-directory: ./src
   
-      - name: Build frontend with hardcoded variables
-        run: |
-          # Set environment variables directly
-          export VITE_API_BASE_URL="https://ypsykhuu2d.execute-api.us-east-1.amazonaws.com"
-          export VITE_STRIPE_DASHBOARD_URL="https://dashboard.stripe.com/login"
+      # - name: Build frontend with hardcoded variables
+      #   run: |
+      #     # Set environment variables directly
+      #     export VITE_API_BASE_URL="https://ypsykhuu2d.execute-api.us-east-1.amazonaws.com"
+      #     export VITE_STRIPE_DASHBOARD_URL="https://dashboard.stripe.com/login"
           
-          # Run the correct build command based on environment
-          npm run build:$ENVIRONMENT
-        working-directory: ./src
+      #     # Run the correct build command based on environment
+      #     npm run build:$ENVIRONMENT
+      #   working-directory: ./src
 
       - name: Deploy to S3
         run: |
