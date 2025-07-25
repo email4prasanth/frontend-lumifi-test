@@ -34,6 +34,7 @@ jobs:
       - name: Select/Create Workspace
         run: |
           terraform workspace select $ENVIRONMENT || terraform workspace new $ENVIRONMENT
+          
 
       - name: Terraform Validate
         run: terraform validate
