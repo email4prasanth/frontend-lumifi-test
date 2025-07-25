@@ -66,10 +66,28 @@ data "aws_iam_policy_document" "frontend_policy" {
 
     principals {
       type = "AWS"
-      identifiers = ["arn:aws:iam::180294218712:user/lumifi"]
-      # type        = "*"
       # identifiers = ["*"]
+      # identifiers = ["arn:aws:iam::310018061670:user/prasanth_devops"]
+      identifiers = [aws_cloudfront_origin_access_identity.frontend.iam_arn]
 
+    }
+  }
+
+  # Statement 2: Minimal access for CloudFront
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket"
+    ]
+    resources = [
+      aws_s3_bucket.frontend.arn,
+      "${aws_s3_bucket.frontend.arn}/*"
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.frontend.iam_arn]
     }
   }
 }
