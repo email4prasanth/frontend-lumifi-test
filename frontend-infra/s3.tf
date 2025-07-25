@@ -66,7 +66,7 @@ data "aws_iam_policy_document" "frontend_policy" {
 
     principals {
       type = "AWS"
-      identifiers = [aws_cloudfront_origin_access_identity.frontend.iam_arn]
+      identifiers = ["arn:aws:iam::180294218712:user/lumifi"]
       # type        = "*"
       # identifiers = ["*"]
 
