@@ -163,16 +163,16 @@ jobs:
       - name: Empty S3 bucket
         run: |
           # Delete all object versions
-          aws s3api delete-objects --bucket ${{ steps.get-bucket.outputs.s3_bucket_name }} \
+          aws s3api delete-objects --bucket $BUCKET_NAME \
             --delete "$(aws s3api list-object-versions \
-            --bucket ${{ steps.get-bucket.outputs.s3_bucket_name }} \
+            --bucket $BUCKET_NAME \
             --output=json \
             --query='{Objects: Versions[].{Key:Key,VersionId:VersionId}}')" || true
 
           # Delete all delete markers
-          aws s3api delete-objects --bucket ${{ steps.get-bucket.outputs.s3_bucket_name }} \
+          aws s3api delete-objects --bucket $BUCKET_NAME \
             --delete "$(aws s3api list-object-versions \
-            --bucket ${{ steps.get-bucket.outputs.s3_bucket_name }} \
+            --bucket $BUCKET_NAME \
             --output=json \
             --query='{Objects: DeleteMarkers[].{Key:Key,VersionId:VersionId}}')" || true
 
