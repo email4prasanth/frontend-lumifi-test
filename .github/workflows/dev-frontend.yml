@@ -117,6 +117,7 @@ jobs:
             --distribution-id ${{ needs.aws-resources-deploy.outputs.cloudfront_id }} \
             --paths "/*"
 
+
 # ### To destory
 # ###
 # name: Destroy lumifi frontend Infrastructure
