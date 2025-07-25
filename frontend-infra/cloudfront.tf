@@ -5,9 +5,17 @@ resource "aws_cloudfront_distribution" "frontend" {
     domain_name = aws_s3_bucket.frontend.bucket_regional_domain_name
     origin_id   = "S3-${aws_s3_bucket.frontend.bucket}"
 
-    s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.frontend.cloudfront_access_identity_path
+    # Use custom_origin_config for website endpoints
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "http-only"  # Website endpoints only support HTTP
+      origin_ssl_protocols   = ["TLSv1.2"]
     }
+
+    # s3_origin_config {
+    #   origin_access_identity = aws_cloudfront_origin_access_identity.frontend.cloudfront_access_identity_path
+    # }
   }
 
   enabled             = true
@@ -50,10 +58,10 @@ resource "aws_cloudfront_distribution" "frontend" {
   tags = local.tags
 }
 
-# CloudFront Origin Access Identity (OAI)
-resource "aws_cloudfront_origin_access_identity" "frontend" {
-  # provider = aws.us_east_1
-  comment = "OAI for ${aws_s3_bucket.frontend.bucket}"
-}
+# # CloudFront Origin Access Identity (OAI)
+# resource "aws_cloudfront_origin_access_identity" "frontend" {
+#   # provider = aws.us_east_1
+#   comment = "OAI for ${aws_s3_bucket.frontend.bucket}"
+# }
 
 
