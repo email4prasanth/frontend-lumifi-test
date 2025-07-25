@@ -157,7 +157,7 @@ jobs:
       - name: Get S3 bucket name
         id: get-bucket
         run: |
-          BUCKET_NAME=$lumifi-$NVIRONMENT -frontend-test
+          BUCKET_NAME=$lumifi-$NVIRONMENT-frontend-test
           echo "s3_bucket_name=$BUCKET_NAME" >> $GITHUB_OUTPUT
 
       - name: Empty S3 bucket
